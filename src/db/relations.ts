@@ -6,6 +6,7 @@ export const relations = defineRelations(schema, (r) => ({
     employee: r.one.employees({
       from: r.users.employeeId,
       to: r.employees.id,
+      optional: false,
     }),
   },
 }));
