@@ -51,13 +51,16 @@ export const cropsController = new Elysia({ prefix: "crops" })
   .post(
     "",
     async ({ body }) => {
-      const [crop] = await db.insert(schema.crops).values(body).returning();
+      const [crop] = await db
+        .insert(schema.crops)
+        .values(apiToDb(body))
+        .returning();
       if (!crop) throw new HttpError(404, "Культура не найдена");
       return dbToApi(crop);
     },
     {
       detail: {
-        summary: "Создать культуру"
+        summary: "Создать культуру",
       },
       body: ApiCropInsertSchema,
       response: {
@@ -78,7 +81,7 @@ export const cropsController = new Elysia({ prefix: "crops" })
     },
     {
       detail: {
-        summary: "Редактировать культуру"
+        summary: "Редактировать культуру",
       },
       params: z.object({ id: z.guid() }),
       body: ApiCropInsertSchema,
@@ -100,7 +103,7 @@ export const cropsController = new Elysia({ prefix: "crops" })
     },
     {
       detail: {
-        summary: "Удалить культуру"
+        summary: "Удалить культуру",
       },
       params: z.object({ id: z.guid() }),
       response: {

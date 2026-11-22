@@ -53,7 +53,7 @@ export const employeesController = new Elysia({ prefix: "employees" })
     async ({ body }) => {
       const [employee] = await db
         .insert(schema.employees)
-        .values(body)
+        .values(apiToDb(body))
         .returning();
       if (!employee) throw new HttpError(404, "Работник не найден");
       return dbToApi(employee);
