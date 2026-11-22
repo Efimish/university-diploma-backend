@@ -2,6 +2,9 @@
 
 ```bash
 cp .env.example .env
+docker compose up -d
 pnpm install
+pnpm db:push
+pnpm db:seed
 pnpm start
 ```

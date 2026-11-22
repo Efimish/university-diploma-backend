@@ -2,6 +2,8 @@ import { Elysia } from "elysia";
 import { node } from "@elysiajs/node";
 import { openapi } from "@elysia/openapi";
 import { z } from "zod";
+import { HttpError } from "@/error";
+import { cropsController } from "@/crops/crops.controller";
 import { env } from "@/env";
 
 new Elysia({ adapter: node() })
@@ -19,6 +21,10 @@ new Elysia({ adapter: node() })
       },
     }),
   )
+  .error({ HttpError })
+  .onError(({ error }) => {
+    if (error instanceof HttpError) return error.toResponse();
+  })
   .get("/health", () => ({ status: "ok" as const }), {
     detail: {
       summary: "Проверка работоспособности",
@@ -27,6 +33,7 @@ new Elysia({ adapter: node() })
       200: z.object({ status: z.literal("ok") }),
     },
   })
+  .use(cropsController)
   .listen(env.PORT);
 
 console.log(`Listening on http://127.0.0.1:${env.PORT}`);
