@@ -14,6 +14,7 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "@elysia/cors": "^1.4.3",
     "@elysia/openapi": "^1.4.17",
     "@elysiajs/node": "^1.4.5",
     "dotenv": "^18.0.10",

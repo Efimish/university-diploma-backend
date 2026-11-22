@@ -1,5 +1,6 @@
 import { Elysia } from "elysia";
 import { node } from "@elysiajs/node";
+import { cors } from "@elysia/cors";
 import { openapi } from "@elysia/openapi";
 import { z } from "zod";
 import { HttpError } from "@/error";
@@ -21,6 +22,7 @@ new Elysia({ adapter: node() })
       },
     }),
   )
+  .use(cors())
   .error({ HttpError })
   .onError(({ error }) => {
     if (error instanceof HttpError) return error.toResponse();
