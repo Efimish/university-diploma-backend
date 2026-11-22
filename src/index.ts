@@ -5,6 +5,7 @@ import { openapi } from "@elysia/openapi";
 import { z } from "zod";
 import { HttpError } from "@/error";
 import { cropsController } from "@/crops/crops.controller";
+import { employeesController } from "@/employees/employees.controller";
 import { env } from "@/env";
 
 new Elysia({ adapter: node() })
@@ -36,6 +37,7 @@ new Elysia({ adapter: node() })
     },
   })
   .use(cropsController)
+  .use(employeesController)
   .listen(env.PORT);
 
 console.log(`Listening on http://127.0.0.1:${env.PORT}`);
