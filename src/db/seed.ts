@@ -1,7 +1,10 @@
 import { reset, seed } from "drizzle-seed";
 import { db, schema } from ".";
+import argon2 from "argon2";
 
-// await reset(db, schema);
+const passwordHash = await argon2.hash("123");
+
+await reset(db, schema);
 await seed(db, schema).refine((f) => ({
   crops: {
     count: 10,
@@ -33,5 +36,8 @@ await seed(db, schema).refine((f) => ({
   },
   users: {
     count: 3,
+    columns: {
+      passwordHash: f.valuesFromArray({ values: [passwordHash] }),
+    },
   },
 }));

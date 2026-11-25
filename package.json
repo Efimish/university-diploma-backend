@@ -17,7 +17,9 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "@elysia/bearer": "^1.4.4",
     "@elysia/cors": "^1.4.3",
+    "@elysia/jwt": "^1.4.2",
     "@elysia/openapi": "^1.4.17",
     "@elysiajs/node": "^1.4.5",
     "argon2": "^0.45.2",

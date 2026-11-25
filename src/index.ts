@@ -7,6 +7,7 @@ import { HttpError } from "@/error";
 import { cropsController } from "@/crops/crops.controller";
 import { employeesController } from "@/employees/employees.controller";
 import { usersController } from "@/users/users.controller";
+import { authController } from "@/auth.controller";
 import { env } from "@/env";
 
 new Elysia({ adapter: node() })
@@ -17,6 +18,15 @@ new Elysia({ adapter: node() })
         info: {
           title: "Диплом API",
           version: "0.0.0",
+        },
+        components: {
+          securitySchemes: {
+            bearer: {
+              type: "http",
+              scheme: "bearer",
+              bearerFormat: "JWT",
+            },
+          },
         },
       },
       mapJsonSchema: {
@@ -40,6 +50,7 @@ new Elysia({ adapter: node() })
   .use(cropsController)
   .use(employeesController)
   .use(usersController)
+  .use(authController)
   .listen(env.PORT);
 
 console.log(`Listening on http://127.0.0.1:${env.PORT}`);
