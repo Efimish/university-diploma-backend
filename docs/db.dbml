@@ -1,0 +1,47 @@
+Table "crops" {
+  "id" uuid [primary key, not null, default: `gen_random_uuid()`]
+  "title" text [not null, unique]
+  "internalPricePerKg" integer [not null]
+  "externalPricePerKg" integer [not null]
+}
+
+Table "employees" {
+  "id" uuid [primary key, not null, default: `gen_random_uuid()`]
+  "role" text [not null]
+  "name" text [not null]
+  "type" text [not null]
+  "createdAt" timestamp [not null, default: `now()`]
+}
+
+Table "users" {
+  "id" uuid [primary key, not null, default: `gen_random_uuid()`]
+  "employeeId" uuid [not null]
+  "email" text [not null, unique]
+  "passwordHash" text [not null]
+}
+
+Table "weighing_clients" {
+  "id" uuid [primary key, not null, default: `gen_random_uuid()`]
+  "cropId" uuid [not null]
+  "name" text [not null]
+  "weightNettoGrams" integer [not null]
+  "weightContainersGrams" integer [not null]
+  "time" timestamp [not null, default: `now()`]
+  "price" integer [not null]
+  "paymentType" text [not null]
+}
+
+Table "weighing_employees" {
+  "id" uuid [primary key, not null, default: `gen_random_uuid()`]
+  "cropId" uuid [not null]
+  "employeeId" uuid [not null]
+  "weightNettoGrams" integer [not null]
+  "weightContainersGrams" integer [not null]
+  "time" timestamp [not null, default: `now()`]
+  "price" integer [not null]
+}
+
+Ref: "users"."employeeId" > "employees"."id"
+Ref: "weighing_clients"."cropId" > "crops"."id"
+Ref: "weighing_employees"."cropId" > "crops"."id"
+Ref: "weighing_employees"."employeeId" > "employees"."id"

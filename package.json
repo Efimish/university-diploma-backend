@@ -11,6 +11,9 @@
     "db:migrate": "tsx src/db/migrate.ts",
     "db:seed": "tsx src/db/seed.ts",
     "db:push": "drizzle-kit push",
+    "db:docs:md": "drizzle-docs generate --force -d postgresql -f markdown --single-file src/db/schema.ts -o docs/db.md",
+    "db:docs:dbml": "drizzle-docs generate --force -d postgresql -f dbml src/db/schema.ts -o docs/db.dbml",
+    "db:docs": "pnpm db:docs:md && pnpm db:docs:dbml && prettier --write docs",
     "format": "prettier --write ."
   },
   "dependencies": {
@@ -28,6 +31,7 @@
   "devDependencies": {
     "@types/node": "^26.6.6",
     "@types/pg": "^8.23.1",
+    "drizzle-docs-generator": "^0.8.2",
     "drizzle-kit": "1.0.0-rc.6",
     "prettier": "^3.10.1",
     "tsx": "^4.23.15",

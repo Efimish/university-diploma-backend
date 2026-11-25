@@ -8,3 +8,8 @@ pnpm db:push
 pnpm db:seed
 pnpm start
 ```
+
+## Схема базы данных
+
+- [Схема .dmbl](./docs/db.dbml)
+- [Описание в .md](./docs/db.md)
